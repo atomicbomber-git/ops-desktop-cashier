@@ -56,7 +56,7 @@
                             placeholder="Kata Sandi"
                             class="form-control"
                             :class="{'is-invalid': get(form_errors, 'password', false)}"
-                            type="text">
+                            type="password">
                         <div
                             class="invalid-feedback"
                             v-if="get(form_errors, 'password', false)">
@@ -96,8 +96,8 @@ export default {
 
     methods: {
         storeUser() {
-            this.validate_form()
-                .then(() => {
+            this.validate_form({
+                success: () => {
                     DB.put({
                         _id: this.username,
                         type: DataType.user,
@@ -109,17 +109,18 @@ export default {
                             icon: 'success',
                             text: 'Tindakan Berhasil',
                         })
+                        .then(() => {
+                            this.$emit('change-page', 'user-index')
+                        })
                     })
                     .catch(error => {
                         swal({
                             icon: 'error',
-                            text: error,
-                            dangerMode: true,
+                            text: 'Tindakan Gagal',
                         })
                     })
-                })
-
-            
+                }
+            })
         }
     },
 
