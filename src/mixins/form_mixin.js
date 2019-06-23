@@ -31,7 +31,7 @@ const formMixin = {
         validation_rules = this.form_validation_rules
       }
 
-      indicative.validateAll(this.form_data, validation_rules, validation_messages)
+      return indicative.validateAll(this.form_data, validation_rules, validation_messages)
         .then(() => {
           /* No validation error whatsoever */
           this.form_errors = []

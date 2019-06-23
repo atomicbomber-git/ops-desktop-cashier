@@ -26,6 +26,7 @@
     "popper.js": "^1.15.0",
     "pouchdb-browser": "^7.1.1",
     "pouchdb-find": "^7.1.1",
+    "sweetalert": "^2.1.2",
     "vue": "^2.6.10"
   },
   "devDependencies": {

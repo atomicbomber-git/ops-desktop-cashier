@@ -97,17 +97,29 @@ export default {
     methods: {
         storeUser() {
             this.validate_form()
+                .then(() => {
+                    DB.put({
+                        _id: this.username,
+                        type: DataType.user,
+                        name: this.name,
+                        password: Hash.make(this.password)
+                    })
+                    .then(result => {
+                        swal({
+                            icon: 'success',
+                            text: 'Tindakan Berhasil',
+                        })
+                    })
+                    .catch(error => {
+                        swal({
+                            icon: 'error',
+                            text: error,
+                            dangerMode: true,
+                        })
+                    })
+                })
 
-            if (this.form_errors.length !== 0) {
-                return
-            }
-
-            DB.put({
-                _id: this.username,
-                type: DataType.user,
-                name: this.name,
-                password: Hash.make(this.password)
-            }).then(result => {});
+            
         }
     },
 
