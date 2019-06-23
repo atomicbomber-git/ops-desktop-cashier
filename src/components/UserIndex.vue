@@ -39,7 +39,9 @@
                     <td>{{ user._id }}</td>
                     <td>{{ user.name }}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-danger">Hapus</button>
+                        <button @click="onDeleteUserButtonClick" class="btn btn-sm btn-danger">
+                            Hapus
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -50,7 +52,8 @@
 <script>
 
 import Config from '../config'
-import db from "../database";
+import db from '../database'
+import swal from 'sweetalert'
 
 export default {
     mounted() {
@@ -68,6 +71,23 @@ export default {
         return {
             users: []
         };
+    },
+
+    methods: {
+        swal,
+
+        onDeleteUserButtonClick() {
+            swal({
+                icon: 'warning',
+                dangerMode: true,
+                text: 'Apakah Anda yakin Anda ingin menghapus data ini?'
+            })
+            .then(ok => {
+                if (ok) {
+                    
+                }
+            })
+        }
     },
 
     computed: {

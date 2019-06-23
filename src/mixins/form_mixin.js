@@ -1,7 +1,6 @@
 import indicative from 'indicative'
 import validation_messages from '../validation_messages'
 import { groupBy, get, pickBy } from 'lodash'
-import swal from 'sweetalert'
 
 const formMixin = {
   data() {
@@ -12,7 +11,6 @@ const formMixin = {
 
   methods: {
     get,
-    swal,
 
     validate_form_partial() {
       indicative.validate(this.form_data, this.form_validation_rules, validation_messages)

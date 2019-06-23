@@ -76,12 +76,12 @@
 </template>
 
 <script>
-import formMixin from "../mixins/form_mixin";
-import Config from "../config";
-import DataType from "../data_type";
-import Hash from "../hash";
-import DB from "../database";
-import indicative from "indicative";
+import formMixin from "../mixins/form_mixin"
+import Config from "../config"
+import DataType from "../data_type"
+import Hash from "../hash"
+import DB from "../database"
+import swal from 'sweetalert'
 
 export default {
     mixins: [formMixin],
@@ -95,6 +95,7 @@ export default {
     },
 
     methods: {
+        swal,
         storeUser() {
             this.validate_form({
                 success: () => {
