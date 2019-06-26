@@ -26,7 +26,7 @@
         <table class="table table-sm table-bordered">
             <thead class="thead thead-dark">
                 <tr>
-                    <th>#</th>
+                    <th class="text-center">#</th>
                     <th>Nama Pengguna</th>
                     <th>Nama Asli</th>
                     <th class="text-center">Kendali</th>
@@ -35,7 +35,7 @@
 
             <tbody>
                 <tr v-for="(user, index) in users" :key="user._id">
-                    <td>{{ index + 1 }}</td>
+                    <td class="text-center">{{ index + 1 }}</td>
                     <td>{{ user._id }}</td>
                     <td>{{ user.name }}</td>
                     <td class="text-center">

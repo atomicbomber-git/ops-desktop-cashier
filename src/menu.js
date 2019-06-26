@@ -1,23 +1,27 @@
-const { Menu } = require('electron')
+import { Menu } from 'electron'
+import events from './events'
 
-const isMac = process.platform === 'darwin'
+function menuTemplate(window) {
+    return [
+        {
+            label: 'Master Data',
+            submenu: [
+                { label: 'User', click: () => { window.webContents.send(events.PAGE_CHANGE, 'user-index') } },
+            ],
+        },
+    
+        {
+            label: 'Operasional',
+            submenu: [
+                { label: 'Transaksi', click() { window.webContents.send(events.PAGE_CHANGE, 'transaction-index') }},
+                { label: 'Histori Transaksi' },
+            ],
+        }
+    ]
+}
 
-const template = [
-    {
-        label: 'View',
-        submenu: [
-            { role: 'reload' },
-            { role: 'forcereload' },
-            { role: 'toggledevtools' },
-            { type: 'separator' },
-            { role: 'resetzoom' },
-            { role: 'zoomin' },
-            { role: 'zoomout' },
-            { type: 'separator' },
-            { role: 'togglefullscreen' }
-        ]
-    },
-]
+function menu(window) {
+    return Menu.buildFromTemplate(menuTemplate(window)) 
+}
 
-const menu = Menu.buildFromTemplate(template)
-module.exports = menu
+export default menu

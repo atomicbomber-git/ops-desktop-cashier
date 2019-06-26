@@ -11,12 +11,20 @@
 
 import UserIndex from './components/UserIndex'
 import UserCreate from './components/UserCreate'
-import { parse } from 'path';
+import TransactionIndex from './components/TransactionIndex'
+import events from './events'
+import { ipcRenderer } from 'electron'
 
 export default {
   name: 'app',
   components: {
-    UserIndex, UserCreate
+    UserIndex, UserCreate, TransactionIndex
+  },
+
+  mounted() {
+    ipcRenderer.on(events.PAGE_CHANGE, (event, message) => {
+      this.changePage(message)
+    })
   },
 
   methods: {
@@ -36,6 +44,7 @@ export default {
       return {
         'user-index': UserIndex,
         'user-create': UserCreate,
+        'transaction-index': TransactionIndex,
       }
     },
 

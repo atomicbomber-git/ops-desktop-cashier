@@ -21,7 +21,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form @submit="storeUser">
+                <form @submit.prevent="storeUser">
                     <div class="form-group">
                         <label for="username"> Nama Pengguna: </label>
                         <input

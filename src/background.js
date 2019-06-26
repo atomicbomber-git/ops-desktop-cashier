@@ -16,7 +16,6 @@ protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: tru
 
 /* Application menu */
 import menu from './menu'
-Menu.setApplicationMenu(menu)
 
 function createWindow() {
   // Create the browser window.
@@ -39,6 +38,8 @@ function createWindow() {
   win.on('closed', () => {
     win = null
   })
+
+  Menu.setApplicationMenu(menu(win))
 }
 
 // Quit when all windows are closed.
