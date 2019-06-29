@@ -5,6 +5,11 @@ import {
   createProtocol,
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
+
+/* Load environment vars from the .env file */
+import dotenv from 'dotenv'
+dotenv.config()
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -16,6 +21,7 @@ protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: tru
 
 /* Application menu */
 import menu from './menu'
+import { exists } from 'fs';
 
 function createWindow() {
   // Create the browser window.

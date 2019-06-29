@@ -96,9 +96,10 @@ export default {
 
     methods: {
         swal,
+
         storeUser() {
-            this.validate_form({
-                success: () => {
+            this.validateForm()
+                .then(() => {
                     DB.put({
                         _id: this.username,
                         type: DataType.user,
@@ -120,8 +121,10 @@ export default {
                             text: 'Tindakan Gagal',
                         })
                     })
-                }
-            })
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
     },
 

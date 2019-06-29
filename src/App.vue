@@ -15,6 +15,9 @@ import TransactionIndex from './components/TransactionIndex'
 import events from './events'
 import { ipcRenderer } from 'electron'
 
+import auth from './authentication'
+import db from './database'
+
 export default {
   name: 'app',
   components: {
@@ -22,6 +25,14 @@ export default {
   },
 
   mounted() {
+    auth.check()
+      .then(doc => {
+        console.log(doc)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
     ipcRenderer.on(events.PAGE_CHANGE, (event, message) => {
       this.changePage(message)
     })
@@ -49,7 +60,7 @@ export default {
     },
 
     current_component() {
-      return this.page_map[this.current_page]
+      return this.page_map[this.current_page] || null
     }
   }
 }

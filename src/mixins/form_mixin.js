@@ -1,69 +1,67 @@
-import indicative from 'indicative'
-import validation_messages from '../validation_messages'
-import { groupBy, get, pickBy } from 'lodash'
+import indicative from "indicative";
+import validation_messages from "../validation_messages";
+import { groupBy, get, pickBy } from "lodash";
 
 const formMixin = {
-  data() {
-    return {
-      form_errors: null,
-    }
+ data() {
+  return {
+   form_errors: null
+  };
+ },
+
+ methods: {
+  get,
+
+  validateFormPartially() {
+   indicative
+    .validate(this.form_data, this.form_validation_rules, validation_messages)
+    .catch(errors => {
+     this.form_errors = groupBy(errors, 'field');
+    });
   },
 
-  methods: {
-    get,
+  validateForm(options) {
+   let validation_rules;
 
-    validate_form_partial() {
-      indicative.validate(this.form_data, this.form_validation_rules, validation_messages)
-        .catch(errors => {
-          this.form_errors = groupBy(errors, 'field')
-        })
-    },
+   if (options && "ignore_null" in options && options.ignore_null) {
+    validation_rules = pickBy(this.form_validation_rules, (value, key) => {
+     return this.form_data[key] !== null;
+    });
+   } else {
+    validation_rules = this.form_validation_rules;
+   }
 
-    validate_form(options) {
-      let validation_rules
-
-      if (options && 'ignore_null' in options && options.ignore_null) {
-        validation_rules = pickBy(this.form_validation_rules, (value, key) => {
-          return this.form_data[key] !== null
-        })
-      }
-      else {
-        validation_rules = this.form_validation_rules
-      }
-
-      return indicative.validateAll(this.form_data, validation_rules, validation_messages)
-        .then(() => {
-          /* No validation error whatsoever */
-          this.form_errors = []
-
-          if (options && 'success' in options) {
-            options.success()
-          }
-        })
-        .catch(errors => {
-          this.form_errors = groupBy(errors, 'field')
-        })
-    },
-  },
-  
-  computed: {
-    form_data() {
-
-    },
-
-    form_validation_rules() {
-      
-    },
-  },
-
-  watch: {
-    form_data: {
-      handler: function() {
-        this.validate_form({ ignore_null: true })
-      },
-      deep: true,
-    }
+   return new Promise((resolve, reject) => {
+    indicative
+     .validateAll(this.form_data, validation_rules, validation_messages)
+     .then(() => {
+      /* No validation error whatsoever */
+      this.form_errors = [];
+      resolve()
+     })
+     .catch(errors => {
+      this.form_errors = groupBy(errors, 'field');
+      reject({ message: 'Form data is invalid' })
+    });
+   });
   }
-}
+ },
 
-export default formMixin
+ computed: {
+  form_data() {},
+
+  form_validation_rules() {}
+ },
+
+ watch: {
+  form_data: {
+   handler: function() {
+    this.validateForm({ ignore_null: true })
+      .catch(() => {})
+   },
+   deep: true
+  }
+ }
+};
+
+export default formMixin;
