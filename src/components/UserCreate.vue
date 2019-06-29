@@ -21,7 +21,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form @submit.prevent="storeUser">
+                <form @submit.prevent="onFormSubmit">
                     <div class="form-group">
                         <label for="username"> Nama Pengguna: </label>
                         <input
@@ -97,34 +97,37 @@ export default {
     methods: {
         swal,
 
-        storeUser() {
+        onFormSubmit() {
             this.validateForm()
                 .then(() => {
-                    DB.put({
-                        _id: this.username,
-                        type: DataType.user,
-                        name: this.name,
-                        password: Hash.make(this.password)
-                    })
-                    .then(result => {
-                        swal({
-                            icon: 'success',
-                            text: 'Tindakan Berhasil',
-                        })
-                        .then(() => {
-                            this.$emit('change-page', 'user-index')
-                        })
-                    })
-                    .catch(error => {
-                        swal({
-                            icon: 'error',
-                            text: 'Tindakan Gagal',
-                        })
-                    })
+                    this.storeUser()
                 })
-                .catch(err => {
-                    console.log(err)
+                .catch(() => {
                 })
+        },
+
+        storeUser() {
+            DB.put({
+                _id: this.username,
+                type: DataType.user,
+                name: this.name,
+                password: Hash.make(this.password)
+            })
+            .then(result => {
+                swal({
+                    icon: 'success',
+                    text: 'Tindakan Berhasil',
+                })
+                .then(() => {
+                    this.$emit('change-page', 'user-index')
+                })
+            })
+            .catch(error => {
+                swal({
+                    icon: 'error',
+                    text: 'Tindakan Gagal',
+                })
+            })
         }
     },
 
