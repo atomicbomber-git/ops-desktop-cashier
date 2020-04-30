@@ -22,7 +22,7 @@
     "dotenv": "^8.0.0",
     "font-awesome": "^4.7.0",
     "indicative": "^5.0.8",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.11",
     "popper.js": "^1.15.0",
     "pouchdb-browser": "^7.1.1",
