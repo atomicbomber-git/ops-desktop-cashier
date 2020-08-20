@@ -16,7 +16,7 @@
   },
   "main": "background.js",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.6.5",
     "dotenv": "^8.0.0",
