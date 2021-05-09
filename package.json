@@ -23,7 +23,7 @@
     "font-awesome": "^4.7.0",
     "indicative": "^5.0.8",
     "jquery": "^3.4.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "popper.js": "^1.15.0",
     "pouchdb-browser": "^7.1.1",
     "pouchdb-find": "^7.1.1",
